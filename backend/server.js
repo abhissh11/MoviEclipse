@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.js";
 import movieRoutes from "./routes/movies.js";
 import voteRoutes from "./routes/votes.js";
 import commentRoutes from "./routes/comments.js";
+import userRoutes from "./routes/users.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/movies", movieRoutes);
 app.use("/api/votes", voteRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => res.send("MovieHub API running"));
 
