@@ -6,8 +6,10 @@ import { ChevronDown } from "lucide-react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Comment from "../components/Comment";
+import { useLoading } from "../context/LoadingContext";
 
 export default function MoviePage() {
+  const { loading, setLoading } = useLoading();
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
@@ -15,10 +17,11 @@ export default function MoviePage() {
   const [comment, setComment] = useState("");
 
   const load = async () => {
+    setLoading(true);
     const res = await API.get(`/movies/${id}`);
+    setLoading(false);
     setMovie(res.data);
   };
-  console.log(movie);
 
   useEffect(() => {
     load();
@@ -45,11 +48,11 @@ export default function MoviePage() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gray-200 p-8 rounded-xl">
+      <div className="bg-gray-200 p-4 md:p-8 rounded-xl">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-2xl font-bold">{movie.title}</h1>
-            <p className="text-gray-700 mt-2">{movie.description}</p>
+            <h1 className="text-lg md:text-2xl font-bold">{movie.title}</h1>
+            <p className="text-gray-700 mt-2 max-w-md">{movie.description}</p>
             <p className="mt-3 text-sm font-bold text-gray-800">
               Score: {movie.score}
             </p>
@@ -60,7 +63,7 @@ export default function MoviePage() {
           {user?.user.role === "admin" && (
             <button
               onClick={deleteMovie}
-              className="text-base text-white px-3 py-2 bg-red-500 rounded-lg hover:bg-red-600 cursor-pointer"
+              className="w-fit text-sm md:text-base  text-white px-3 py-2 bg-red-500 rounded-lg hover:bg-red-600 cursor-pointer"
             >
               Delete Movie
             </button>

@@ -10,3 +10,9 @@
 .card {
   @apply bg-white rounded-2xl shadow-md p-6;
 } */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

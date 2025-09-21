@@ -25,7 +25,7 @@ export default function Navbar() {
               </span>
               <button
                 onClick={logout}
-                className="text-sm text-red-500 hover:underline"
+                className="text-sm text-red-500 hover:underline cursor-pointer"
               >
                 Logout
               </button>

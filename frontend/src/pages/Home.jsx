@@ -4,15 +4,20 @@ import { AuthContext } from "../context/AuthContext";
 import MovieCard from "../components/MovieCard";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { useLoading } from "../context/LoadingContext";
 
 export default function Home() {
+  const { loading, setLoading } = useLoading();
+
   const [movies, setMovies] = useState([]);
   const { user } = useContext(AuthContext);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
 
   const load = async () => {
+    setLoading(true);
     const res = await API.get("/movies");
+    setLoading(false);
     setMovies(res.data);
   };
 
