@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import API from "../api/api";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { ThumbsDown, ThumbsUp } from "lucide-react";
+import { MoveRight, ThumbsDown, ThumbsUp } from "lucide-react";
 
 export default function MovieCard({ movie, refresh }) {
   const { user } = useContext(AuthContext);
@@ -17,25 +17,25 @@ export default function MovieCard({ movie, refresh }) {
     }
   };
 
-  const deleteMovie = async () => {
-    if (!window.confirm("Delete this movie?")) return;
-    try {
-      await API.delete(`/movies/${movie._id}`);
-      refresh();
-    } catch (err) {
-      alert(err.response?.data?.message || "Delete failed");
-    }
-  };
-
   return (
     <div className="group card flex flex-col justify-between items-start hover:shadow-lg transition relative bg-gray-100 p-4 rounded-xl">
       <div>
-        <Link
-          to={`/movie/${movie._id}`}
-          className="text-lg font-semibold text-gray-800 hover:text-primary group-hover:text-blue-500 hover:underline"
-        >
-          {movie.title}
-        </Link>
+        <div className="flex justify-between items-center">
+          <Link
+            to={`/movie/${movie._id}`}
+            className="text-lg font-semibold text-gray-800 hover:text-primary group-hover:text-blue-500 hover:underline"
+          >
+            {movie.title}
+          </Link>
+          <p className="">
+            <Link to={`/movie/${movie._id}`}>
+              <MoveRight
+                size={40}
+                className="bg-blue-500 md:bg-gray-300 md:group-hover:bg-blue-500 p-2 rounded-full"
+              />
+            </Link>
+          </p>
+        </div>
         <p className="text-gray-600 text-sm mt-1">{movie.description}</p>
       </div>
       <div className="flex flex-row items-center justify-between  w-full gap-2">

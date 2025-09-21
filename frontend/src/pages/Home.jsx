@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import API from "../api/api";
 import { AuthContext } from "../context/AuthContext";
 import MovieCard from "../components/MovieCard";
-import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
@@ -52,12 +51,28 @@ export default function Home() {
           </form>
         </div>
       )}
+      {!user && (
+        <div className="bg-gray-200 p-4 rounded-lg flex justify-between items-center ">
+          <h1 className="text-base text-gray-600 text-wrap">
+            Login to share your movie/show recommendations on the platform.
+          </h1>
+          <button className="text-base bg-blue-500 px-4 py-2 rounded-lg text-white">
+            Login
+          </button>
+        </div>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {movies.map((m) => (
           <MovieCard key={m._id} movie={m} refresh={load} />
         ))}
       </div>
+      {!movies && (
+        <p>
+          Moes not found, Try refreshing or wait for 50 seconds, backend
+          deployed on free render.
+        </p>
+      )}
     </div>
   );
 }
